@@ -346,7 +346,12 @@ func EnterPid(cgroupPaths map[string]string, pid int) error {
 // If after all there are not removed cgroups - appropriate error will be
 // returned.
 func RemovePaths(paths map[string]string) (err error) {
-	delay := 10 * time.Millisecond
+	for s, p := range paths {
+          fmt.Println("s: " + s + ", p:" + p)
+        }
+        delete(paths, "memory")
+        fmt.Println("skip cgroup delete")
+        delay := 10 * time.Millisecond
 	for i := 0; i < 5; i++ {
 		if i != 0 {
 			time.Sleep(delay)
